@@ -13,6 +13,12 @@
                         <input type="text" name="name" class="form-control" required>
                     </div>
 
+                    {{-- Username (Tambahan) --}}
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+
                     {{-- Email --}}
                     <div class="mb-3">
                         <label class="form-label">Email</label>
@@ -49,7 +55,7 @@
                         </div>
                     </div>
 
-                    {{-- Level --}}
+                    {{-- Role (Sesuai dengan Controller) --}}
                     <div class="mb-3">
                         <label class="form-label">Level</label>
                         <select name="level" class="form-select" required>

@@ -26,24 +26,25 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users', // ✅ Tambahkan username (wajib unik)
+            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|email|unique:users',
-            'nisn' => 'nullable|string|max:255|unique:users', // ✅ Boleh NULL
+            'nisn' => 'nullable|numeric|digits:10|unique:users',
             'password' => 'required|min:6|confirmed',
-            'level' => 'required|in:guru,siswa,admin',
+            'level' => 'required|string', // ✅ Sesuai dengan form
         ]);
-
+    
         User::create([
             'name' => $request->name,
-            'username' => $request->username, // ✅ Simpan username
+            'username' => $request->username,
             'email' => $request->email,
             'nisn' => $request->nisn,
             'password' => Hash::make($request->password),
-            'level' => $request->level,
+            'level' => $request->level, // ✅ Role diambil dari form
         ]);
-
+    
         return redirect()->route('user.index')->with('success', 'Pengguna berhasil ditambahkan!');
     }
+
 
     // Menampilkan form edit user
     public function edit(User $user)
@@ -51,41 +52,43 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    // Memperbarui data user
+    // Memperbarui data user (dengan opsi update password)
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $user->id, // ✅ Validasi username unik
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6', // ✅ Password opsional
-            'level' => 'required|in:guru,siswa,admin',
-            'nisn' => 'nullable|string|max:255|unique:users,nisn,' . $user->id, // ✅ Boleh NULL, tapi unik jika diisi
+            'password' => 'nullable|min:6',
+            'nisn' => 'nullable|numeric|digits:10|unique:users,nisn,' . $user->id,
+            'level' => 'required|string',
         ]);
-
-        // Jika password diisi, hash sebelum update
+    
+        // Jika password diisi, hash dulu sebelum update
         $password = $request->password ? Hash::make($request->password) : $user->password;
-
+    
         $user->update([
             'name' => $request->name,
-            'username' => $request->username, // ✅ Perbarui username
+            'username' => $request->username,
             'email' => $request->email,
             'password' => $password,
-            'level' => $request->level,
-            'nisn' => $request->nisn, 
+            'nisn' => $request->nisn,
+            'level' => $request->level, // ✅ Role diperbarui sesuai input form
         ]);
-
+    
         return redirect()->route('user.index')->with('success', 'User berhasil diperbarui!');
     }
+    
 
-    // Menampilkan form edit password
+
+
+
     public function editPassword($id)
     {
         $user = User::findOrFail($id);
         return view('user.editpassword', compact('user'));
     }
 
-    // Memperbarui password user
     public function updatePassword(Request $request, $id)
     {
         $request->validate([
@@ -93,11 +96,14 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+        // $user->password = bcrypt($request->password);
         $user->password = Hash::make($request->password);
-        $user->save();
+        $user->update();
 
         return redirect()->route('user.password.edit', $id)->with('success', 'Password berhasil diperbarui!');
     }
+
+
 
     // Menghapus user
     public function destroy(User $user)

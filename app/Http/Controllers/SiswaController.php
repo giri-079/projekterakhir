@@ -12,8 +12,7 @@ class SiswaController extends Controller
         $search = $request->input('search');
 
         $siswa = Siswa::when($search, function ($query, $search) {
-            return $query->where('nama', 'like', "%$search%")
-                         ->orWhere('nisn', 'like', "%$search%");
+            return $query->where('nama', 'like', "%$search%")  ->orWhere('nisn', 'like', "%$search%");
         })->get();
 
         return view('siswa.index', compact('siswa'));

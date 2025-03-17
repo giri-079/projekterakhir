@@ -25,9 +25,9 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>NISN</th> <!-- Tambahkan kolom NISN -->
-                    <th>Level</th>
-                    <th>Tanggal Dibuat</th> <!-- Format created_at -->
+                    <th>NISN</th> <!-- ✅ Kolom NISN tetap ada -->
+                    <th>Level</th> <!-- ✅ Tambahkan kolom Role -->
+                    <th>Tanggal Dibuat</th> <!-- ✅ Format created_at -->
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -38,11 +38,11 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->nisn ?? '-' }}</td> <!-- ✅ Tampilkan NISN (jika null, tampilkan '-') -->
-                        <td>{{ ucfirst($user->level) }}</td>
+                        <td>{{ ucfirst($user->level) }}</td> <!-- ✅ Tampilkan Role -->
                         <td>{{ $user->created_at ? $user->created_at->format('d-m-Y') : '-' }}</td>
                         <td>
                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{{ route('user.password.edit', $user->id) }}" class="btn btn-secondary btn-sm">Reset Password</a>
+                            <a href="{{ route('user.password.edit', $user->id) }}" class="btn btn-secondary btn-sm">Ubah  Password</a>
                             <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                 @csrf
                                 @method('DELETE')
@@ -65,8 +65,8 @@
                 let name = row.cells[1].textContent.toLowerCase();
                 let email = row.cells[2].textContent.toLowerCase();
                 let nisn = row.cells[3].textContent.toLowerCase();
-                let level = row.cells[4].textContent.toLowerCase();
-                row.style.display = (name.includes(filter) || email.includes(filter) || nisn.includes(filter) || level.includes(filter)) ? "" : "none";
+                let role = row.cells[4].textContent.toLowerCase();
+                row.style.display = (name.includes(filter) || email.includes(filter) || nisn.includes(filter) || role.includes(filter)) ? "" : "none";
             });
         });
     </script>
