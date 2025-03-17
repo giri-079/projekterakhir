@@ -2,7 +2,7 @@
     <h1 class="text-center mb-4">Daftar Riwayat Kelas</h1>
 
     <div class="container">
-        <a href="{{ route('riwayatkelas.create') }}" class="btn btn-primary mb-3">Tambah Riwayat Kelas</a>
+        {{-- <a href="{{ route('riwayatkelas.create') }}" class="btn btn-primary mb-3">Tambah Riwayat Kelas</a> --}}
 
         <form action="{{ route('riwayatkelas.index') }}" method="GET" class="mb-3">
             <div class="input-group">
@@ -54,11 +54,11 @@
                         @endif
                     </td>
                     <td>
-                        <form action="{{ route('riwayatkelas.destroy', $riwayat->id_riwayatkelas) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event);">
+                        {{-- <form action="{{ route('riwayatkelas.destroy', $riwayat->id_riwayatkelas) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event);">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm tombol-hapus">Hapus</button>
-                        </form>
+                        </form> --}}
                     </td>
                 </tr>
                 @endforeach

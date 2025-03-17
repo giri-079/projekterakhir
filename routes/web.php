@@ -76,7 +76,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Menambahkan route resource untuk SiswaController
 Route::get('/siswa', [SiswaController::class, 'index'])
     ->name('siswa.index')
-    ->middleware('level:siswa'); // Pastikan user memiliki level 'siswa'
+    ->middleware('level:guru'); // Pastikan user memiliki level 'siswa'
 
     
 
@@ -129,7 +129,7 @@ Route::delete('/guru/{id}', [GuruController::class, 'destroy'])
 // Rute untuk Kelas
 Route::get('/kelas', [KelasController::class, 'index'])
     ->name('kelas.index')
-    ->middleware('level:admin');
+    ->middleware('level:guru');
 
 Route::get('/kelas/create', [KelasController::class, 'create'])
     ->name('kelas.create')
@@ -212,8 +212,8 @@ Route::delete('/izin/{id}', [IzinController::class, 'destroy'])
 
 // Rute User (khusus Admin)
 Route::get('/user', [UserController::class, 'index'])
-    ->name('user.index')
-    ->middleware('level:admin');
+    ->name('user.index');
+    // ->middleware('level:admin');
 
 Route::get('/user/create', [UserController::class, 'create'])
     ->name('user.create')
