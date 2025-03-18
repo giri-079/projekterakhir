@@ -18,6 +18,9 @@
                                         <td>
                                             <input type="text" name="nisn" id="nisn" class="form-control" pattern="\d{10}" 
                                                 title="NISN harus terdiri dari 10 digit" value="{{ old('nisn') }}" required>
+                                            @error('nisn')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </td>
                                     </tr>
 
@@ -49,7 +52,7 @@
                                     <tr>
                                         <td><label for="alamat">Alamat:</label></td>
                                         <td>
-                                            <textarea class="form-control" value="{{ old('alamat') }}" name="alamat" id="alamat" rows="4" required></textarea>
+                                            <textarea class="form-control" name="alamat" id="alamat" rows="4" required>{{ old('alamat') }}</textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -66,4 +69,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Validasi JavaScript -->
+    <script>
+        document.getElementById('nisn').addEventListener('input', function () {
+            let nisnInput = this;
+            let value = nisnInput.value;
+
+            if (/^\d{10}$/.test(value)) {
+                nisnInput.classList.remove('is-invalid');
+                nisnInput.classList.add('is-valid');
+            } else {
+                nisnInput.classList.remove('is-valid');
+                nisnInput.classList.add('is-invalid');
+            }
+        });
+    </script>
 </x-app-layout>

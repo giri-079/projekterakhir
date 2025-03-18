@@ -27,7 +27,7 @@
 
                     {{-- NISN --}}
                     <div class="mb-3">
-                        <label class="form-label">NISN</label>
+                        <label class="form-label">Username</label>
                         <input type="text" name="nisn" id="nisn" class="form-control" required pattern="\d{10,}" 
                             title="NISN harus minimal 10 angka" oninput="validateNISN(this)">
                         <small class="text-danger d-none" id="nisnError">NISN harus minimal 10 angka</small>

@@ -68,14 +68,23 @@
                         <input type="file" name="bukti" class="form-control" accept="image/jpeg,image/png,image/jpg">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
+                    @php
+                    $isSiswa = auth()->user()->level == 'siswa';
+                @endphp
+                
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    @if ($isSiswa)
+                        <input type="text" class="form-control" value="Menunggu" readonly>
+                        <input type="hidden" name="status" value="menunggu">
+                    @else
                         <select name="status" class="form-select" required>
                             <option value="menunggu" selected>Menunggu</option>
                             <option value="diizinkan">Diizinkan</option>
                             <option value="ditolak">Ditolak</option>
                         </select>
-                    </div>
+                    @endif
+                </div>
 
                     <button type="submit" class="btn btn-success">Simpan</button>
                     <a href="{{ route('izin.index') }}" class="btn btn-secondary">Kembali</a>

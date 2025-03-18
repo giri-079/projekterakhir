@@ -19,13 +19,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">NISN</label>
-                        <input type="text" name="nisn" class="form-control" value="{{ $user->nisn }}" disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" value="******" disabled>
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" value="{{ $user->username }}" required>
                     </div>
 
                     <div class="mb-3">
@@ -46,4 +41,3 @@
         </div>
     </div>
 </x-app-layout>
-            

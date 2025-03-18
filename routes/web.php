@@ -9,6 +9,7 @@ use App\Http\Controllers\IzinController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Hash;
 // use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -81,8 +82,8 @@ Route::get('/siswa', [SiswaController::class, 'index'])
     
 
 Route::get('/siswa/create', [SiswaController::class, 'create'])
-    ->name('siswa.create')
-    ->middleware('level:siswa');
+    ->name('siswa.create');
+    // ->middleware('level:siswa');
 
 Route::post('/siswa', [SiswaController::class, 'store'])
     ->name('siswa.store')
@@ -128,28 +129,28 @@ Route::delete('/guru/{id}', [GuruController::class, 'destroy'])
 
 // Rute untuk Kelas
 Route::get('/kelas', [KelasController::class, 'index'])
-    ->name('kelas.index')
-    ->middleware('level:guru');
+    ->name('kelas.index');
+    // ->middleware('level:guru');
 
 Route::get('/kelas/create', [KelasController::class, 'create'])
-    ->name('kelas.create')
-    ->middleware('level:admin');
+    ->name('kelas.create');
+    // ->middleware('level:admin');
 
 Route::post('/kelas', [KelasController::class, 'store'])
-    ->name('kelas.store')
-    ->middleware('level:admin');
+    ->name('kelas.store');
+    // ->middleware('level:admin');
 
 Route::get('/kelas/{id}/edit', [KelasController::class, 'edit'])
     ->name('kelas.edit')
     ->middleware('level:admin');
 
 Route::put('/kelas/{id}', [KelasController::class, 'update'])
-    ->name('kelas.update')
-    ->middleware('level:admin');
+    ->name('kelas.update');
+    // ->middleware('level:admin');
 
 Route::delete('/kelas/{id}', [KelasController::class, 'destroy'])
-    ->name('kelas.destroy')
-    ->middleware('level:admin');
+    ->name('kelas.destroy');
+    // ->middleware('level:admin');
 
 // Rute Tahun Ajaran
 Route::get('/tahunajaran', [TahunAjaranController::class, 'index'])
@@ -212,8 +213,8 @@ Route::delete('/izin/{id}', [IzinController::class, 'destroy'])
 
 // Rute User (khusus Admin)
 Route::get('/user', [UserController::class, 'index'])
-    ->name('user.index');
-    // ->middleware('level:admin');
+    ->name('user.index')
+    ->middleware('level:admin');
 
 Route::get('/user/create', [UserController::class, 'create'])
     ->name('user.create')
@@ -248,6 +249,10 @@ Route::get('/unauthorized', function () {
     return view('unauthorized');
 });
 
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
 
 
 

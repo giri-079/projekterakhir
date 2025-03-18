@@ -6,7 +6,7 @@
 
         <form action="{{ route('guru.index') }}" method="GET" class="mb-3">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Cari ID/Nama..." value="{{ request('search') }}">
+                <input type="text" name="search" class="form-control" placeholder="Cari NIK/Nama Guru..." value="{{ request('search') }}">
                 <button type="submit" class="btn btn-info">Cari</button>
             </div>
         </form>
@@ -15,10 +15,10 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>ID Guru</th>
+                    <th>NIK Guru</th>
                     <th>Nama Guru</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    <th class="text-center">Aksi</th> <!-- Pusatkan judul kolom -->
                 </tr>
             </thead>
             <tbody>
@@ -34,15 +34,18 @@
                                 <span class="badge bg-danger">Tidak Aktif</span>
                             @endif
                         </td>
-                        <td>
-                            <a href="{{ route('guru.edit', $guru->id_guru) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('guru.destroy', $guru->id_guru) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                    Hapus
-                                </button>
-                            </form>
+                        <td class="text-center">
+                            <div class="btn-group w-50 gap-2">
+                                <a href="{{ route('guru.edit', $guru->id_guru) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                                <form action="{{ route('guru.destroy', $guru->id_guru) }}" method="POST">
+                                    
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                            
                         </td>
                     </tr>
                 @endforeach

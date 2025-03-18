@@ -30,7 +30,7 @@
                     <th>No</th>
                     <th>ID Kelas</th>
                     <th>Nama Kelas</th>
-                    <th>Wali Kelas - NISN</th>
+                    <th>Wali Kelas</th> <!-- Hanya menampilkan nama guru -->
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -42,20 +42,22 @@
                         <td>{{ $kelas->nama_kelas }}</td>
                         <td>
                             @if($kelas->guru)
-                                {{ $kelas->guru->nama_guru }} - {{ $kelas->guru->id_guru }}
+                                {{ $kelas->guru->nama_guru }}
                             @else
                                 Guru tidak tersedia
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('kelas.edit', $kelas->id_kelas) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('kelas.destroy', $kelas->id_kelas) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                    Hapus
-                                </button>
-                            </form>
+                            <div class="btn-group gap-2">
+                                <a href="{{ route('kelas.edit', $kelas->id_kelas) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('kelas.destroy', $kelas->id_kelas) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -68,4 +70,4 @@
 @if (!app()->environment('production'))
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-@endif
+@endif 

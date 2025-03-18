@@ -55,7 +55,7 @@
                         @if ($izinItem->bukti)
                             <img src="{{ asset('storage/' . $izinItem->bukti) }}" 
                                  alt="Bukti Izin" 
-                                 style="max-width: 120px; height: auto; cursor: pointer; border-radius: 5px;"
+                                 style="max-width: 120px; heiZght: auto; cursor: pointer; border-radius: 5px;"
                                  onclick="showBukti('{{ asset('storage/' . $izinItem->bukti) }}')">
                         @else
                             <span class="text-muted">Tidak ada bukti</span>
